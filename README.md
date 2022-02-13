@@ -1,9 +1,9 @@
-# Asynchronous AlphaZero implementation for PyTorch
+# Asynchronous AlphaZero in PyTorch
 Complete implementation of DeepMind's [AlphaZero](https://arxiv.org/abs/1712.01815) paper.
 
 ## Features
 1. Performant asynchronous training and self-play
-2. Multi-machine support via using a centralised data-broker
+2. Multi-machine support using a centralised data-broker
 3. Agent evaluation in a league setting using `trueskill`
 4. Shipped with two parametrizable games: 
     - *ConnectX* (e.g. the standard variant Connect4)
