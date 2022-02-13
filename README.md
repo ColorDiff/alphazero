@@ -190,9 +190,9 @@ Another interesting observation for a run on `ConnectX(7, 6, 4)` was that
 the training progress was hinged on the new data added to the buffer, not on the amount of steps done on the existing data.
 This can be inferred from the plots below:
 #### Training progress in "step-time"
-![Step time](resources/Bildschirmfoto 2022-02-11 um 01.30.51.png)
+![Step time](resources/pic1.png)
 #### Training progress in wall-time since start of the training in hours.
-![Time since start](resources/Bildschirmfoto 2022-02-11 um 01.31.00.png)
+![Time since start](resources/pic2.png)
 In "step-time", the training progress slowed down continually until step 5000 (when the buffer got full and old samples were discarded).
 When contrasted to the wall-time, we see that the training did not slow down at all (as the data-generation was almost constant throughout), we just increased the rate at which we optimized. 
 I.e. the most crucial part of AlphaZero is the rate at which self-play data can be generated.
