@@ -212,10 +212,11 @@ class CrossKalah(Game):
 
     def get_obs(self):
         idxs = np.arange(self._houses)
-        houses_south = self._state[self._houses_s_mask].reshape(-1, 1).clip(0, self._seeds * self._houses)
-        houses_north = self._state[self._houses_n_mask].reshape(-1, 1).clip(0, self._seeds * self._houses)
+        houses_south = self._state[self._houses_s_mask].clip(0, self._seeds * self._houses)
+        houses_north = self._state[self._houses_n_mask].clip(0, self._seeds * self._houses)
         bank_s = self._state[self._bank_s_idx].clip(0, self._seeds * self._houses)
         bank_n = self._state[self._bank_n_idx].clip(0, self._seeds * self._houses)
+        self._obs_buffer *= 0
         if self._s_to_move:
             self._obs_buffer[idxs, houses_south[idxs], 0] = 1
             self._obs_buffer[idxs, houses_north[idxs], 1] = 1
