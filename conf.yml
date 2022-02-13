@@ -1,0 +1,23 @@
+game_name: ConnectX
+game_kwargs: {width: 7, height: 6, x: 4}
+net_kwargs: {num_layers: 9, num_filters: 256}
+mcts_kwargs: {num_simulations: 256,
+              virtual_threads: 1,
+              ply_deterministic: 8,
+              c_puct: 5,
+              alpha: 0.03,
+              eta: 0.25,
+              n_vl: 3}
+train_kwargs: { batch_size: 2048,
+                num_batches_per_step: 1,
+                buffer_size: 1_000_000,
+                min_buffer_size: 1,
+                num_iter_per_publish: 1,
+                num_iter_per_ckp: 500,
+                max_iter: 60000,
+                lr: 0.2,
+                steps_per_observation: 2,  # Alpha Go Zero was in range [ 0.3 - 0.75 ]!
+                momentum: 0.9,
+                weight_decay: 0.0001,
+                lr_decay_step: [15000, 30000, 45000]
+}
