@@ -1,4 +1,4 @@
-# Asynchronous AlphaZero implementation in PyTorch
+# Asynchronous AlphaZero in PyTorch
 Complete implementation of DeepMind's [AlphaZero](https://arxiv.org/abs/1712.01815) paper.
 
 ## Features
