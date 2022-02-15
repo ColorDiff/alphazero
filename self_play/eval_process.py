@@ -43,7 +43,10 @@ class EvalProcess(mp.Process):
                 break
             elif cmd == 'update_params':
                 with self.lock:
-                    self.net.load_state_dict(other)
+                    try:
+                        self.net.load_state_dict(other)
+                    except Exception as e:
+                        print("Error while loading state dict: {}".format(e))
                 print("Updated parameters")
 
     def run(self):

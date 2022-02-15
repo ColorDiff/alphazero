@@ -99,15 +99,17 @@ class Evaluator:
         return result
 
     def _find_best_match(self, i_player):
-        # idx, max_quality = -1, -math.inf
-        # for i in range(len(self.players)):
-        #     if i != i_player:
-        #         quality = quality_1vs1(self.players[i], self.players[i_player])
-        #         if quality > max_quality:
-        #             max_quality = quality
-        #             idx = i
-        idx = np.random.choice([i for i in range(len(self.players)) if i != i_player])
-        max_quality = 0
+        if np.random.choice([True, False], p=[0.75, 0.25]):
+            idx, max_quality = -1, -math.inf
+            for i in range(len(self.players)):
+                if i != i_player:
+                    quality = quality_1vs1(self.players[i], self.players[i_player])
+                    if quality > max_quality:
+                        max_quality = quality
+                        idx = i
+        else:
+            idx = np.random.choice([i for i in range(len(self.players)) if i != i_player])
+            max_quality = 0
         return idx, max_quality
 
     def save(self, file):
