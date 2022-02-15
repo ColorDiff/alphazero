@@ -14,7 +14,6 @@ from threading import Thread
 
 
 class TrainWorker(Thread):
-    buffer_size = 1000000
 
     def __init__(self, game_name, game_kwargs, net_kwargs, train_config, mcts_config,
                  out_folder, client, device='cuda', init_from_ckp=None):
@@ -38,6 +37,7 @@ class TrainWorker(Thread):
             self.probs_buffer = torch.zeros((self.train_conf['buffer_size'], game.num_actions), dtype=torch.float32)
             self.reward_buffer = torch.zeros((self.train_conf['buffer_size'], 1), dtype=torch.float32)
             self.last_added = torch.zeros((self.train_conf['buffer_size'],), dtype=torch.float32)
+            self.buffer_size = self.train_conf['buffer_size']
             self.buffer_end = 0
             self.buffer_i = 0
             self.sample_allowance = 0

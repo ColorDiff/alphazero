@@ -12,13 +12,11 @@ import glob
 
 class Evaluator:
 
-    def __init__(self, game_name, game_kwargs, thinking_time: float = 5,
-                 ply_deterministic=None, device='cuda', verbose=True):
+    def __init__(self, game_name, game_kwargs, ply_deterministic=None, device='cuda', verbose=True):
         self.players = []
         self.ckps = []
         self.game_name = game_name
         self.game_kwargs = game_kwargs
-        self.thinking_time = thinking_time
         self.device = device
         self.verbose = verbose
         self.ply_deterministic = ply_deterministic
@@ -88,9 +86,9 @@ class Evaluator:
         while not game.is_terminal:
             self._log(game)
             if game.is_first_player_to_move:
-                action = first_player.get_action(game, thinking_time=self.thinking_time)
+                action = first_player.get_action(game)
             else:
-                action = second_player.get_action(game, thinking_time=self.thinking_time)
+                action = second_player.get_action(game)
             game.step(action)
             first_player.move(action)
             second_player.move(action)
@@ -145,7 +143,7 @@ def main(args):
     else:                               # Otherwise create a new evaluator
         from net import load_ckp
         _, _, game_name, game_kwargs = load_ckp(ckps[0])
-        evaluator = Evaluator(game_name, game_kwargs, args.thinking_time, args.ply_deterministic, args.device,
+        evaluator = Evaluator(game_name, game_kwargs, args.ply_deterministic, args.device,
                               args.verbose)
 
     # Scan for new checkpoints and evaluate them
@@ -168,8 +166,6 @@ if __name__ == '__main__':
                                                             'are written that should be evaluated. Not recursive.')
     parser.add_argument('--ckp_pattern', default='ckp_*.pth', help='The extension which identifies checkpoints.')
     parser.add_argument('--ply_deterministic', default=4, type=int, help='How many steps to sample actions.')
-    parser.add_argument('--thinking_time', default=5, type=float, help='How long the agents are allowed'
-                                                                       ' to think per move in seconds.')
     parser.add_argument('--num_matches', default=20, type=int, help='Number of matches to play to determine the '
                                                                     'checkpoint\'s strength relative to all others.')
     parser.add_argument('--device', default='cuda', type=str, help='The compute device to use.')

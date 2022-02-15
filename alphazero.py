@@ -55,14 +55,18 @@ class AlphaZero:
     def move(self, action):
         self.tree.step(action, is_index=False)
 
-    def get_action(self, game, thinking_time: float):
+    def get_action(self, game, thinking_time: float = None):
         # Thinking time is the minimum time used.
         # More complex time management will require an estimate of a simulation run's time consumption.
-        assert thinking_time > 0
         start = time()
         state = game.get_state()
-        while time() - start < thinking_time:
-            self.tree.run_simulations()
+        if thinking_time is not None:
+            assert thinking_time > 0
+            while time() - start < thinking_time:
+                self.tree.run_simulations()
+        else:
+            for i in range(self.mcts_kwargs['num_simulations'] // self.mcts_kwargs['virtual_threads'] + 1):
+                self.tree.run_simulations()
         action, _, probs = self.tree.get_action()
         game.set_state(self.tree.root.state)
         print('Evaluation:', ['{:.3f}'.format(float(item)) for item in self.tree.root.q])

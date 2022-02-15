@@ -11,7 +11,7 @@ import torch
 class EvalProcess(mp.Process):
 
     MAX_BATCH_SIZE = 4096
-    BATCH_SIZE_BUFFER = 128
+    BATCH_SIZE_BUFFER = 1024
 
     def __init__(self, game_name, game_kwargs, net_kwargs, mcts_conns, parent_conn, device='cuda:0'):
         super().__init__()

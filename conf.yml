@@ -1,8 +1,10 @@
 game_name: ConnectX
 game_kwargs: {width: 7, height: 6, x: 4}
+#game_name: CrossKalah
+#game_kwargs: {seeds: 6, houses: 6}
 net_kwargs: {num_layers: 9, num_filters: 256}
-mcts_kwargs: {num_simulations: 256,
-              virtual_threads: 1,
+mcts_kwargs: {num_simulations: 512,
+              virtual_threads: 8,
               ply_deterministic: 8,
               c_puct: 5,
               alpha: 0.03,
@@ -10,14 +12,14 @@ mcts_kwargs: {num_simulations: 256,
               n_vl: 3}
 train_kwargs: { batch_size: 2048,
                 num_batches_per_step: 1,
-                buffer_size: 1_000_000,
+                buffer_size: 3_000_000,
                 min_buffer_size: 1,
-                num_iter_per_publish: 1,
-                num_iter_per_ckp: 500,
-                max_iter: 60000,
+                num_iter_per_publish: 2,
+                num_iter_per_ckp: 1000,
+                max_iter: 100000,
                 lr: 0.2,
-                steps_per_observation: 2,  # Alpha Go Zero was in range [ 0.3 - 0.75 ]!
+                steps_per_observation: 4,  # Alpha Go Zero was in range [ 0.3 - 0.75 ]!
                 momentum: 0.9,
                 weight_decay: 0.0001,
-                lr_decay_step: [15000, 30000, 45000]
+                lr_decay_step: [60000]
 }
