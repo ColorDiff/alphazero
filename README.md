@@ -103,8 +103,10 @@ python alphazero.py <path-to-checkpoint>
 Have fun! :)
 
 ## Pre-trained weights
+
 ### Connect X
-I will upload a checkpoint to `resources` as soon as the training run has converged. 
+A checkpoint can be found in `resources/ckp_18.pth` (@18k steps).
+It plays strong but not optimal.
 
 ## Requirements
 ```
